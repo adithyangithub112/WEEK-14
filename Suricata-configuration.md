@@ -175,10 +175,78 @@ To test Suricata configuration:
 suricata.exe -T -c suricata.yaml
 ```
 
+## Run Suricata as a Windows Service (Recommended)
+
+This allows Suricata to:
+
+- Start automatically when Windows boots.
+- Run quietly in the background.
+- Keep writing to logs even if you close PowerShell.
+
+### Step-by-Step:
+
+1. **Open PowerShell as Administrator**
+2. **Install the service:**
+    
+    ```powershell
+    suricata.exe --install-service
+    
+    ```
+    
+3. **Start the service:**
+    
+    ```powershell
+    net start suricata
+    
+    ```
+    
+4. **Check service status:**
+    
+    ```powershell
+    Get-Service suricata
+    
+    ```
+    
+    You should see:
+    
+    ```
+    Status   Name               DisplayName
+    ------   ----               -----------
+    Running  suricata           Suricata IDS/IPS
+    
+    ```
+    
+5. **Logs location:**
+    
+    By default:
+    
+    ```
+    C:\ProgramData\Suricata\log\fast.log
+    
+    ```
+    
+    You can open this with Notepad or run:
+    
+    ```powershell
+    Get-Content "C:\ProgramData\Suricata\log\fast.log" -Wait
+    
+    ```
+    
+    to watch live alerts.
+    
+
+---
+
+## Uninstall or Stop the Service
+
+If you ever want to stop or remove it:
+
+```powershell
+net stop suricata
+suricata.exe --remove-service
+
+```
+
 ‍
 
-# **Conclusion**
 
-Installing and configuring Suricata on Windows is a straightforward process if you follow the steps outlined in this guide. With Suricata installed and properly configured, you'll be equipped to monitor network traffic and detect potential security threats effectively.
-
-Happy monitoring!
